@@ -1,13 +1,14 @@
 import MenuItem from "./components/MenuItem";
 import OrderContents from "./components/OrderContents";
 import OrderTotals from "./components/OrderTotals";
+import PeopleSplitForm from "./components/PeopleSplitForm";
 import TipPercentageForm from "./components/TipPercentageForm";
 import { menuItems  } from "./data/db"
 import useOrder from "./hooks/useOrder";
 
 function App() {
 
-  const { order, tip, setTip, addItem, removeItem, placeOrder } = useOrder()
+  const { order, tip, people, setPeople, setTip, addItem, removeItem, placeOrder } = useOrder()
 
   return (
     <>
@@ -41,12 +42,20 @@ function App() {
                 setTip = {setTip}
                 tip = {tip}
               />
+              
+              <PeopleSplitForm 
+                people = {people}
+                setPeople = {setPeople}
+              />
 
               <OrderTotals 
                 order={order}
                 tip = {tip}
+                people = {people}
                 placeOrder = { placeOrder }
               />
+
+
             </>
           ) : (
             <p className="text-center">La orden esta vacia</p>
