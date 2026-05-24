@@ -5,6 +5,7 @@ export default function useOrder() {
 
     const [order, setOrder] = useState<OrderItem[]>([])
     const [tip, setTip] = useState(0)
+    const [people, setPeople] = useState(1)
 
     const addItem = (item : MenuItem) => {
         const itemExist = order.find(orderItem => orderItem.id === item.id)
@@ -25,12 +26,15 @@ export default function useOrder() {
     const placeOrder = () => {
         setOrder([])
         setTip(0)
+        setPeople(1)
     }
 
     return {
         order,
         tip,
         setTip,
+        people,
+        setPeople,
         addItem,
         removeItem,
         placeOrder,

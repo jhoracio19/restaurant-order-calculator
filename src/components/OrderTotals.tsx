@@ -6,14 +6,16 @@ import { formatCurrency } from "../helpers"
 type OrderTotalsProps = {
   order: OrderItem[],
   tip: number,
+  people: number
   placeOrder: () => void,
 }
 
-export default function OrderTotals({order, tip, placeOrder}: OrderTotalsProps) {
+export default function OrderTotals({order, tip, people, placeOrder}: OrderTotalsProps) {
 
   const subtotalAmount = useMemo(() => order.reduce( (total, item) => total + (item.quantity * item.price), 0), [order])  
   const tipAmount = useMemo( () => subtotalAmount * tip, [tip, order] )
   const totalAmount = useMemo( () => subtotalAmount + tipAmount, [tip, order] )
+  const totalPerson = useMemo( () => totalAmount / people, [totalAmount, people])
 
   return (
     <>
@@ -29,6 +31,10 @@ export default function OrderTotals({order, tip, placeOrder}: OrderTotalsProps) 
         
         <p>Total a Pagar: {''}
             <span className="font-bold">{formatCurrency(totalAmount)}</span>
+        </p>
+
+        <p> A cada uno le toca:
+            <span className="font-bold">{formatCurrency(totalPerson)}</span>
         </p>
       </div>
 
