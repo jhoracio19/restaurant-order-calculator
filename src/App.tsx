@@ -10,8 +10,8 @@ import { initialState, orderReducer } from "./reducers/order-reducer";
 
 function App() {
 
-  const { order, tip, people, setPeople, setTip, addItem, removeItem, placeOrder } = useOrder()
-  
+  const { order, tip, people, setPeople, setTip, removeItem, placeOrder } = useOrder()
+
   const [state, dispatch] = useReducer(orderReducer, initialState)
 
   return (
@@ -28,18 +28,18 @@ function App() {
                   <MenuItem
                       key = {item.id}
                       item = {item}
-                      addItem={addItem}
+                      dispatch = {dispatch}
                     />
                   ))}
             </div>
         </div>
 
         <div className="border border-dashed border-slate-300 p-5 rounded-lg space-y-10">
-          {order.length > 0 ?(
+          {state.order.length > 0 ?(
             <>
               <OrderContents
-                order = {order}
-                removeItem = {removeItem}
+                order = {state. order}
+                dispatch = {dispatch}
               />
 
               <TipPercentageForm 
@@ -53,7 +53,7 @@ function App() {
               />
 
               <OrderTotals 
-                order={order}
+                order={state.order}
                 tip = {tip}
                 people = {people}
                 placeOrder = { placeOrder }
